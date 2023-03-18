@@ -21,6 +21,10 @@ public class Workspace extends Gmail{
         calendar.add(meeting);
     }
 
+    public ArrayList<Meeting> getCalendar() {
+        return calendar;
+    }
+
     public int findMaxMeetings(){
         // find the maximum number of meetings you can attend
         // 1. At a particular time, you can be present in at most one meeting
@@ -37,8 +41,16 @@ public class Workspace extends Gmail{
         int maxMeetingCanBeAttended=1;
 
         for(int i=1; i<calendar.size(); i++){
-            if(calendar.get(i).compareTo(calendar.get(i-1)) > 0)
+//            if(calendar.get(i).compareTo(calendar.get(i-1)) > 0) {
+//                maxMeetingCanBeAttended++;
+//            }
+            int j = i-1;
+            while(i<calendar.size() && calendar.get(i).getStartTime().compareTo(calendar.get(j).getEndTime()) < 0){
+                i++;
+            }
+            if(i < calendar.size()){
                 maxMeetingCanBeAttended++;
+            }
         }
         return maxMeetingCanBeAttended;
     }
